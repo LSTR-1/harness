@@ -97,6 +97,8 @@ lstr-solo-harness/
 
    ```bash
    git clone https://github.com/florentin-one/LSTR-solo-harness
+   cp -R LSTR-solo-harness/.trae .
+   cp LSTR-solo-harness/AGENTS.md .
    ```
 
 2. Open the folder as a project in TRAE IDE and switch to **SOLO Mode**.
