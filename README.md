@@ -59,7 +59,7 @@ lstr-solo-harness/
 ├── docs/
 │   └── harness-design.md              # Full architecture document
 └── .trae/
-    ├── mcp.json                       # LSTR-r reasoning MCP server registry
+    ├── mcp.json                       # lstr-reasoning reasoning MCP server registry
     ├── rules/                         # Always-on behavioral contract
     │   ├── 00-identity.md             #   alwaysApply: true
     │   ├── 10-reasoning-framework.md  #   alwaysApply: true

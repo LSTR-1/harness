@@ -38,7 +38,7 @@ rules (always-on)  →  skills (on-demand)  →  MCP (toolchain)  →  hooks (de
 
 - **Rules** — always-on behavioral contract; loaded in full at chat start.
 - **Skills** — on-demand capability modules; loaded only when triggered (reduces token consumption).
-- **MCP** — the reasoning toolchain (LSTR-r) and any domain tools.
+- **MCP** — the reasoning toolchain (lstr-reasoning) and any domain tools.
 - **Hooks** — deterministic shell commands at lifecycle points; not subject to the model's judgment.
 - **Commands** — human entry points (`/discover`, `/reflect`, `/audit`).
 - **Memory** — persistent self-evolution state (local-only native memory + git-tracked ledger).
@@ -94,7 +94,7 @@ trae-harness/
 ├── AGENTS.md                          # portable identity + behavioral contract
 ├── docs/harness-design.md             # this document
 └── .trae/
-    ├── mcp.json                       # LSTR-r MCP server registry
+    ├── mcp.json                       # lstr-reasoning MCP server registry
     ├── rules/                         # always-on behavioral contract
     │   ├── 00-identity.md             # alwaysApply
     │   ├── 10-reasoning-framework.md  # alwaysApply
