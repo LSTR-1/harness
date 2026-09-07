@@ -72,7 +72,7 @@ Cost (tokens, turns, tool calls) is a first-class metric alongside accuracy — 
 
 ## 6. Compliance
 
-- **GDPR Art. 28** — MCP calls transmit content to `https://mcp.beta.lstr.one/mcp`; secrets and PII MUST be stripped from tool arguments absent a processing agreement. Secrets EXCLUDED from hooks, memory, ledger, and reasoning records.
+- **GDPR Art. 28** — MCP calls transmit content to `https://reasoning.lstr.one/mcp`; secrets and PII MUST be stripped from tool arguments absent a processing agreement. Secrets EXCLUDED from hooks, memory, ledger, and reasoning records.
 - **EU AI Act** — no prohibited practices (Art. 5); no sensitive-attribute inference without a lawful basis.
 - **German data sovereignty** — default on-device/local storage; prefer local skills and rules over remote services where equivalent; flag cross-border egress.
 

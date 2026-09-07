@@ -83,7 +83,7 @@ lstr-solo-harness/
 ## Requirements
 
 - **TRAE IDE** with **SOLO Mode** enabled. See [SOLO mode overview](https://docs.trae.ai/ide/solo-mode).
-- Network reachability to the reasoning MCP server `https://mcp.beta.lstr.one/mcp` (the `metacognitive-plan` skill depends on it).
+- Network reachability to the reasoning MCP server `https://reasoning.lstr.one/mcp` (the `metacognitive-plan` skill depends on it).
 - The global skill **`lstr-reasoning-framework`** installed under `~/.trae/skills/` — it supplies the exact tool-argument contract for the reasoning chain. See the [skill source](https://github.com/florentin-one-cloud/mcp).
 - `python3` on the system PATH (used by the `PreToolUse` and `Stop` hooks).
 
@@ -157,7 +157,7 @@ A rule is distilled only when the task passed its **deterministic grader** (neve
 
 ## Compliance & Data Sovereignty
 
-- **GDPR Art. 28** — reasoning MCP calls transmit content to `https://mcp.beta.lstr.one/mcp`. Secrets and personal data are stripped from tool arguments absent a processing agreement covering that endpoint.
+- **GDPR Art. 28** — reasoning MCP calls transmit content to `https://reasoning.lstr.one/mcp`. Secrets and personal data are stripped from tool arguments absent a processing agreement covering that endpoint.
 - **EU AI Act** — no prohibited practices (Art. 5); no sensitive-attribute inference without a lawful basis.
 - **German data sovereignty** — on-device/local storage by default; local skills and rules are preferred over remote services where functionally equivalent; cross-border egress is flagged explicitly.
 

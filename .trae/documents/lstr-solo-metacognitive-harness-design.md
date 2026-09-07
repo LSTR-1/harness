@@ -37,7 +37,7 @@ The harness is **configuration, not code**. It composes the nine TRAE primitives
 
 - Global skills already present: `lstr-reasoning-framework`, `create-skill`, `doc-page`, `notebooklm-meta-study`, `refactor-solo-maintenance` (`~/.trae/skills/`).
 - `lstr-reasoning-framework` provides the 6-step metacognitive chain (metacognitiveMonitoring → sequentialthinking → collaborativeReasoning → scientificMethod + structuredArgumentation → constraintSolver) and the 7-element Exhaustive Output Spec, plus a persisted reasoning-record contract.
-- Reasoning MCP tool family already exposed in this environment (`mcp_lstr-reasoning` portal + `metacognitive-monitoring`, `sequential-thinking`, `collaborative-reasoning`, `scientific-method`, `structured-argumentation`, `constraint-solver`, `narrative-planner`).
+- Reasoning MCP tool family already exposed in this environment (`reasoning-portal` server at `https://reasoning.lstr.one/mcp` + `reasoning_metacognitiveMonitoring`, `reasoning_sequentialthinking`, `reasoning_collaborativeReasoning`, `reasoning_scientificMethod`, `reasoning_structuredArgumentation`, `reasoning_constraintSolver`, `reasoning_narrativePlanner`).
 - Workspace `trae-harness/` is **empty** — greenfield harness.
 
 ## Proposed Changes
@@ -105,7 +105,7 @@ Portable, version-controlled identity. States: harness name ("LSTR Solo Harness"
 Declares the reasoning toolchain per the `lstr-reasoning-framework` skill prerequisite:
 
 ```json
-{ "mcpServers": { "lstr-reasoning": { "url": "https://mcp.beta.lstr.one/mcp" } } }
+{ "mcpServers": { "reasoning-portal": { "url": "https://reasoning.lstr.one/mcp" } } }
 ```
 
 **Exclude** `narrative-planner` (its schema generates three-act story outlines; it MUST NOT structure analytical output).
