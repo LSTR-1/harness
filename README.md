@@ -98,9 +98,9 @@ lstr-solo-harness/
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/florentin-one/LSTR-solo-harness
-   cp -R LSTR-solo-harness/.trae .
-   cp LSTR-solo-harness/AGENTS.md .
+   git clone https://github.com/LSTR-1/harness
+   cp -R harness/.trae .
+   cp harness/AGENTS.md .
    ```
 
 2. Open the folder as a project in TRAE IDE and switch to **SOLO Mode**.
@@ -111,8 +111,8 @@ lstr-solo-harness/
 Copy the `.trae/` directory and `AGENTS.md` into your existing project root, then open it in TRAE IDE SOLO Mode.
 
 ```bash
-cp -R LSTR-solo-harness/.trae /path/to/your/project/
-cp LSTR-solo-harness/AGENTS.md /path/to/your/project/
+cp -R harness/.trae /path/to/your/project/
+cp harness/AGENTS.md /path/to/your/project/
 ```
 
 > TRAE reads project-scoped configuration from `$PROJECT_FOLDER/.trae/` and `$PROJECT_FOLDER/AGENTS.md`.
