@@ -1,11 +1,11 @@
 # LSTR Harness (Vertical AI Integration) — Architecture
 
-Production-ready, zero-shot, self-discovering, metacognitive, self-evolving AI-agent harness for **TRAE IDE SOLO Mode**, positioned on **Vertical AI Integration**.
+Production-ready, zero-shot, self-discovering, metacognitive, self-evolving AI-agent harness for **LSTR One Alpha**, positioned on **Vertical AI Integration**.
 Harness version: `2026.10.14-alpha.1` (ISO 8601 CalVer, alpha).
 
 ## 1. Purpose & Scope
 
-The harness layers TRAE SOLO Mode's native primitives into one coherent, auditable control loop. It is **configuration, not code**: TRAE SOLO's built-in agent is the runtime; the harness supplies identity, reasoning discipline, deterministic guardrails, and a self-evolution policy.
+The harness layers LSTR's native primitives into one coherent, auditable control loop. It is **configuration, not code**: LSTR's built-in agent is the runtime; the harness supplies identity, reasoning discipline, deterministic guardrails, and a self-evolution policy.
 
 The four required properties, defined precisely:
 
@@ -18,9 +18,9 @@ The four required properties, defined precisely:
 
 ## 2. The Metacognitive Loop
 
-Six stages, each mapped to a TRAE primitive and a transferred paper mechanism.
+Six stages, each mapped to a LSTR primitive and a transferred paper mechanism.
 
-| Stage | Action | TRAE primitive | Paper mechanism |
+| Stage | Action | LSTR primitive | Paper mechanism |
 | --- | --- | --- | --- |
 | 1. **Discover** | Capability inventory | `self-discover` skill; MCP `tools/list`; `SessionStart` hook | Zero-shot introspection |
 | 2. **Plan** | 6-step reasoning + constraint planning + mental simulation | `metacognitive-plan` skill; MCP toolchain; `/plan` | DeepPlanning (local vs global constraints), Qwen-AgentWorld (simulation-as-thinking) |

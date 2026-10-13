@@ -1,6 +1,6 @@
 # LSTR Harness (Vertical AI Integration)
 
-Production-ready, zero-shot, self-discovering, metacognitive, self-evolving AI-agent harness for **TRAE IDE SOLO Mode**, positioned on **Vertical AI Integration**.
+Production-ready, zero-shot, self-discovering, metacognitive, self-evolving AI-agent harness for **LSTR One Alpha**, positioned on **Vertical AI Integration**.
 
 ## Identity
 

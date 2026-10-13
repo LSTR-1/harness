@@ -1,12 +1,12 @@
 # LSTR Harness (Vertical AI Integration)
 
-> Production-ready, **zero-shot**, **self-discovering**, **metacognitive**, **self-evolving** AI-agent harness for [TRAE IDE](https://www.trae.ai/) **SOLO Mode**, positioned on **Vertical AI Integration** — domain-specific AI along industrial value chains.
+> Production-ready, **zero-shot**, **self-discovering**, **metacognitive**, **self-evolving** AI-agent harness for [LSTR ONE](https://lstr.one/) **Alpha**, positioned on **Vertical AI Integration** — domain-specific AI along industrial value chains.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform: LSTR One](https://img.shields.io/badge/Platform-LSTR%20One-blue)](https://florentin-one.de/)
 [![Version: 2026.10.14-alpha.1](https://img.shields.io/badge/Version-2026.10.13--alpha.1-orange)](https://github.com/LSTR-1/solo-harness)
 
-The harness is **configuration, not code**. It layers TRAE SOLO Mode's native primitives — rules, skills, MCP, hooks, slash commands, and memory — into one coherent, auditable metacognitive control loop. TRAE SOLO's built-in agent is the runtime; this repository supplies the identity, reasoning discipline, deterministic guardrails, and self-evolution policy that make that runtime production-ready.
+The harness is **configuration, not code**. It layers LSTR's native primitives — rules, skills, MCP, hooks, slash commands, and memory — into one coherent, auditable metacognitive control loop. LSTR's built-in agent is the runtime; this repository supplies the identity, reasoning discipline, deterministic guardrails, and self-evolution policy that make that runtime production-ready.
 
 ---
 
@@ -40,9 +40,9 @@ The harness is **configuration, not code**. It layers TRAE SOLO Mode's native pr
 
 ## How It Works — The Six-Stage Loop
 
-Every non-trivial task proceeds through a deterministic loop. Each stage maps to a TRAE primitive and to a mechanism transferred from peer-reviewed research.
+Every non-trivial task proceeds through a deterministic loop. Each stage maps to a LSTR primitive and to a mechanism transferred from peer-reviewed research.
 
-| Stage | Action | TRAE primitive | Research mechanism |
+| Stage | Action | LSTR primitive | Research mechanism |
 | --- | --- | --- | --- |
 | 1. **Discover** | Build a capability inventory | `self-discover` skill; MCP `tools/list`; `SessionStart` hook | Zero-shot introspection |
 | 2. **Plan** | 6-step reasoning + constraint planning + mental simulation | `metacognitive-plan` skill; MCP toolchain; `/plan` | DeepPlanning (local vs global constraints); Qwen-AgentWorld (simulation-as-thinking) |
@@ -84,7 +84,7 @@ lstr-solo-harness/
 
 ## Requirements
 
-- **TRAE IDE** with **SOLO Mode** enabled. See [SOLO mode overview](https://docs.trae.ai/ide/solo-mode).
+- **LSTR IDE** with **SOLO Mode** enabled. See [SOLO mode overview](https://docs.trae.ai/ide/solo-mode).
 - Network reachability to the reasoning MCP server `https://mcp.api.florentin-one.de/mcp` (the `metacognitive-plan` skill depends on it).
 - The global skill **`reasoning-framework`** installed under `~/.trae/skills/` — it supplies the exact tool-argument contract for the reasoning chain. See the [skill source](https://github.com/LSTR-1/reasoning).
 - `python3` on the system PATH (used by the `PreToolUse` and `Stop` hooks).
