@@ -1,7 +1,7 @@
 {
   "mcpServers": {
-    "reasoning-portal": {
-      "url": "https://reasoning.lstr.one/mcp"
+    "mcp-portal": {
+      "url": "https://mcp.api.florentin-one.de/mcp"
     }
   }
 }

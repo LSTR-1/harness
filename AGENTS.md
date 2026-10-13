@@ -1,6 +1,6 @@
-# LSTR Solo Harness
+# LSTR Harness (Vertical AI Integration)
 
-Production-ready, zero-shot, self-discovering, metacognitive, self-evolving AI-agent harness for **TRAE IDE SOLO Mode**.
+Production-ready, zero-shot, self-discovering, metacognitive, self-evolving AI-agent harness for **LSTR One Alpha**, positioned on **Vertical AI Integration**.
 
 ## Identity
 
@@ -46,6 +46,6 @@ Close every response by reiterating: identity, framework adherence, confidence, 
 
 ## References
 
-- LSTR reasoning framework (global skill): `lstr-reasoning-framework`
+- LSTR reasoning framework (global skill): `reasoning-framework`
 - Architecture: `docs/harness-design.md`
 - Harness configuration: `.trae/`

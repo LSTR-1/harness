@@ -1,6 +1,7 @@
 ---
 name: self-evolve
 description: Reflects on a completed task's outcome and distills reusable atomic rules into persistent state (skills and memory), governed by the self-evolution policy. Invoke after a task passes its deterministic grader, on "/reflect", or as the Evolve stage of the metacognitive loop. Trigger phrases "reflect on this task", "/reflect", "learn from this", "distill a rule".
+version: 2026.10.14-alpha.1
 ---
 
 # self-evolve
