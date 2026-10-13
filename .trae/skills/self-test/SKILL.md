@@ -1,6 +1,7 @@
 ---
 name: self-test
 description: Self-evaluates the agent's output under controlled fault injection using deterministic rule-based graders. Invoke to verify a deliverable before delivery, to test robustness against environmental degradation, or when acceptance must not rely on LLM-as-judge. Trigger phrases "test this", "verify my output", "check robustness", "self-test", or as the Verify stage of the metacognitive loop.
+version: 2026.10.14-alpha.1
 ---
 
 # self-test

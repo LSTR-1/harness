@@ -1,9 +1,10 @@
 ---
 name: audit
 description: Validate the newest reasoning record against the output contract and report gaps.
+version: 2026.10.14-alpha.1
 ---
 
-Audit the harness's reasoning trail.
+# Audit the harness's reasoning trail
 
 1. Locate the newest `reasoning-records/*.md` file.
 2. Validate its frontmatter: `monitoring_id`, `query`, `timestamp`, `overall_confidence`, `knowledge_level`, `steps_executed`, `steps_skipped`.

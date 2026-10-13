@@ -1,9 +1,10 @@
 ---
 name: reflect
 description: Reflect on the just-completed task and distil reusable rules into persistent state (self-evolution).
+version: 2026.10.14-alpha.1
 ---
 
-Invoke the `self-evolve` skill on the just-completed task.
+# Invoke the `self-evolve` skill on the just-completed task
 
 1. Obtain the `grader_score` from the deterministic grader (`self-test`). If no grader ran, report the gap and do NOT distil.
 2. Select supervision type per `40-evolution-policy.md` (default `reflect`).

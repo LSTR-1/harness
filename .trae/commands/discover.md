@@ -1,9 +1,10 @@
 ---
 name: discover
-description: Build a zero-shot runtime capability inventory of the LSTR Solo Harness.
+description: Build a zero-shot runtime capability inventory of the LSTR Harness (Vertical AI Integration).
+version: 2026.10.14-alpha.1
 ---
 
-Invoke the `self-discover` skill.
+# Invoke the `self-discover` skill
 
 1. Scan `~/.trae/skills/*/SKILL.md` and `.trae/skills/*/SKILL.md` for skill names, descriptions, and trigger conditions.
 2. Call `tools/list` on each MCP server in `.trae/mcp.json`.

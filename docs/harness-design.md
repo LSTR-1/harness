@@ -1,6 +1,7 @@
-# LSTR Solo Harness — Architecture
+# LSTR Harness (Vertical AI Integration) — Architecture
 
-Production-ready, zero-shot, self-discovering, metacognitive, self-evolving AI-agent harness for **TRAE IDE SOLO Mode**.
+Production-ready, zero-shot, self-discovering, metacognitive, self-evolving AI-agent harness for **TRAE IDE SOLO Mode**, positioned on **Vertical AI Integration**.
+Harness version: `2026.10.14-alpha.1` (ISO 8601 CalVer, alpha).
 
 ## 1. Purpose & Scope
 
@@ -32,31 +33,32 @@ Six stages, each mapped to a TRAE primitive and a transferred paper mechanism.
 
 Layering by context cost (from always-on to on-demand to deterministic):
 
-```
+```text
 rules (always-on)  →  skills (on-demand)  →  MCP (toolchain)  →  hooks (deterministic)  →  commands (entry)  →  memory (persistent state)
 ```
 
 - **Rules** — always-on behavioral contract; loaded in full at chat start.
 - **Skills** — on-demand capability modules; loaded only when triggered (reduces token consumption).
-- **MCP** — the reasoning toolchain (lstr-reasoning) and any domain tools.
+- **MCP** — the reasoning toolchain, served through the Florentin One Enterprise MCP Portal (`server_name: "mcp_mcp-portal"`), and any domain tools.
 - **Hooks** — deterministic shell commands at lifecycle points; not subject to the model's judgment.
 - **Commands** — human entry points (`/discover`, `/reflect`, `/audit`).
 - **Memory** — persistent self-evolution state (local-only native memory + git-tracked ledger).
 
 ## 4. Reasoning Chain Spec
 
-The LSTR 6-step chain is the runtime's cognitive core. Full argument contract lives in the global `lstr-reasoning-framework` skill; the project `metacognitive-plan` skill delegates to it.
+The LSTR 6-step chain is the runtime's cognitive core. It executes over the Florentin One Enterprise MCP Portal (`server_name: "mcp_mcp-portal"`) using Cloudflare Code Mode: a mandatory Step 0 resolves tool names via `portal_codemode_search` (`codemode.tools()`); each step then runs via `portal_codemode_execute` (`codemode.<tool>(args)`) with parameters nested inside `args`; at most 4 upstream calls run concurrently. Full argument contract lives in the global `reasoning-framework` skill; the project `metacognitive-plan` skill delegates to it.
 
-| Step | Tool | Required args |
+| Step | Code Mode tool | Required args |
 | --- | --- | --- |
-| 1. Metacognitive Assessment | `metacognitiveMonitoring` | `task`, `stage`, `overallConfidence`, `uncertaintyAreas`, `recommendedApproach`, `monitoringId`, `iteration`, `nextAssessmentNeeded` |
-| 2. Problem Decomposition | `sequentialthinking` | `thought`, `nextThoughtNeeded`, `thoughtNumber`, `totalThoughts` |
-| 3. Multi-Perspective Analysis | `collaborativeReasoning` | `topic`, `personas`, `contributions`, `stage`, `activePersonaId`, `sessionId`, `iteration`, `nextContributionNeeded` |
-| 4a. Hypothesis Testing | `scientificMethod` | `stage`, `inquiryId`, `iteration`, `nextStageNeeded` |
-| 4b. Premise Validation | `structuredArgumentation` | `claim`, `premises`, `conclusion`, `argumentType`, `confidence`, `nextArgumentNeeded` |
-| 5. Constraint Validation | `constraintSolver` | `variables`, `constraints` (numeric only) |
+| 0. Tool Discovery (MANDATORY) | `portal_codemode_search` | `code` (JS async arrow fn) |
+| 1. Metacognitive Assessment | `reasoning_metacognitiveMonitoring` | `task`, `stage`, `overallConfidence`, `uncertaintyAreas`, `recommendedApproach`, `monitoringId`, `iteration`, `nextAssessmentNeeded` |
+| 2. Problem Decomposition | `reasoning_sequentialthinking` | `thought`, `nextThoughtNeeded`, `thoughtNumber`, `totalThoughts` |
+| 3. Multi-Perspective Analysis | `reasoning_collaborativeReasoning` | `topic`, `personas`, `contributions`, `stage`, `activePersonaId`, `sessionId`, `iteration`, `nextContributionNeeded` |
+| 4a. Hypothesis Testing | `reasoning_scientificMethod` | `stage`, `inquiryId`, `iteration`, `nextStageNeeded` |
+| 4b. Premise Validation | `reasoning_structuredArgumentation` | `claim`, `premises`, `conclusion`, `argumentType`, `confidence`, `nextArgumentNeeded` |
+| 5. Constraint Validation | `reasoning_constraintSolver` | `variables`, `constraints` (numeric only) |
 
-**EXCLUDE** `narrative-planner` (three-act story tool, not analytical output structuring).
+**EXCLUDE** `reasoning_narrativePlanner` (three-act story tool, not analytical output structuring).
 
 ## 5. Self-Evolution Policy
 
@@ -72,7 +74,7 @@ Cost (tokens, turns, tool calls) is a first-class metric alongside accuracy — 
 
 ## 6. Compliance
 
-- **GDPR Art. 28** — MCP calls transmit content to `https://reasoning.lstr.one/mcp`; secrets and PII MUST be stripped from tool arguments absent a processing agreement. Secrets EXCLUDED from hooks, memory, ledger, and reasoning records.
+- **GDPR Art. 28** — MCP calls transmit content to `https://mcp.api.florentin-one.de/mcp`; secrets and PII MUST be stripped from tool arguments absent a processing agreement. Secrets EXCLUDED from hooks, memory, ledger, and reasoning records.
 - **EU AI Act** — no prohibited practices (Art. 5); no sensitive-attribute inference without a lawful basis.
 - **German data sovereignty** — default on-device/local storage; prefer local skills and rules over remote services where equivalent; flag cross-border egress.
 
@@ -89,12 +91,12 @@ Cost (tokens, turns, tool calls) is a first-class metric alongside accuracy — 
 
 ## 8. File Inventory
 
-```
+```text
 trae-harness/
 ├── AGENTS.md                          # portable identity + behavioral contract
 ├── docs/harness-design.md             # this document
 └── .trae/
-    ├── mcp.json                       # lstr-reasoning MCP server registry
+    ├── mcp.json                       # Florentin One Enterprise MCP Portal registry
     ├── rules/                         # always-on behavioral contract
     │   ├── 00-identity.md             # alwaysApply
     │   ├── 10-reasoning-framework.md  # alwaysApply
@@ -114,3 +116,18 @@ trae-harness/
     └── memory/
         └── evolution-ledger.md        # git-tracked evolution mirror
 ```
+
+## 9. Vertical AI Integration
+
+The harness is positioned on **vertical AI** — AI systems tailored to a specific industry, process, or value-chain segment — following the BMFTR funding directive *"Richtlinie zur Förderung von Leitprojekten für die Nutzung von KI in Wertschöpfungsketten"* (Bundesanzeiger, 31.07.2026).
+
+- **Vertical vs. horizontal:** BMFTR distinguishes *industrielle, domänenspezifische KI* (deep domain knowledge; specialised terminology, industrial datasets and formats; tailored to a vertical value chain) from horizontal, general-purpose LLM chatbots (broad applicability, but limited accuracy and precision in specialised fields such as medicine or mechanical engineering).
+- **Programme context:** part of the Hightech-Agenda Deutschland (HTAD); complementary EU instruments named by BMFTR are the 8ra initiative, AI Factories/Gigafactories, the Apply-AI strategy, and IPCEI-AI.
+- **Priority sectors:** industrial manufacturing & machinery, mobility & automotive, chemistry & cleantech, medtech, agriculture, ICT.
+- **Methods:** the directive assesses Physics-Informed Neural Networks, RAG + Knowledge Graphs, Agentic Workflows, Federated Learning, Model Compression/Edge AI, Data Augmentation, Transfer Learning, MLOps, Explainable AI, formal verification, adversarial robustness, automated red teaming, reliability/out-of-distribution checks, Human-in-the-Loop, Data Provenance & Lineage, and standards-compatible test procedures positively.
+- **Sovereignty:** local/edge processing reduces dependence on external providers and lowers data-protection and IT-security risk; funded results MUST be used only in Germany, the EEA, or Switzerland.
+- **Exclusions:** pure data-centre hardware investment; generalist LLMs without a sector focus; AI hardware; AI in HR, marketing, customer support; predictive maintenance; civil security; robotic care systems.
+
+The user-facing explanation lives in [`../README.md`](../README.md) → "Vertical AI — AI in Value Chains".
+
+> **Source:** BMFTR, Bekanntmachung, Bundesanzeiger vom 31.07.2026 — <https://www.bmftr.bund.de/SharedDocs/Bekanntmachungen/DE/2026/07/2026-07-31-bekanntmachung-ki-wertschoepfungsketten.html>

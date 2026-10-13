@@ -1,9 +1,10 @@
-# LSTR Solo Harness
+# LSTR Harness (Vertical AI Integration)
 
-> Production-ready, **zero-shot**, **self-discovering**, **metacognitive**, **self-evolving** AI-agent harness for [TRAE IDE](https://www.trae.ai/) **SOLO Mode**.
+> Production-ready, **zero-shot**, **self-discovering**, **metacognitive**, **self-evolving** AI-agent harness for [TRAE IDE](https://www.trae.ai/) **SOLO Mode**, positioned on **Vertical AI Integration** — domain-specific AI along industrial value chains.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Platform: TRAE IDE](https://img.shields.io/badge/Platform-TRAE%20IDE%20SOLO-blue)](https://docs.trae.ai/ide/solo-mode)
+[![Platform: LSTR One](https://img.shields.io/badge/Platform-LSTR%20One-blue)](https://florentin-one.de/)
+[![Version: 2026.10.14-alpha.1](https://img.shields.io/badge/Version-2026.10.13--alpha.1-orange)](https://github.com/LSTR-1/solo-harness)
 
 The harness is **configuration, not code**. It layers TRAE SOLO Mode's native primitives — rules, skills, MCP, hooks, slash commands, and memory — into one coherent, auditable metacognitive control loop. TRAE SOLO's built-in agent is the runtime; this repository supplies the identity, reasoning discipline, deterministic guardrails, and self-evolution policy that make that runtime production-ready.
 
@@ -18,12 +19,13 @@ The harness is **configuration, not code**. It layers TRAE SOLO Mode's native pr
 5. [Installation](#installation)
 6. [Usage](#usage)
 7. [The Reasoning Framework](#the-reasoning-framework)
-8. [Self-Evolution Policy](#self-evolution-policy)
-9. [Compliance & Data Sovereignty](#compliance--data-sovereignty)
-10. [Research Foundation](#research-foundation)
-11. [Roadmap](#roadmap)
-12. [Contributing](#contributing)
-13. [License](#license)
+8. [Vertical AI — AI in Value Chains](#vertical-ai--ai-in-value-chains)
+9. [Self-Evolution Policy](#self-evolution-policy)
+10. [Compliance & Data Sovereignty](#compliance--data-sovereignty)
+11. [Research Foundation](#research-foundation)
+12. [Roadmap](#roadmap)
+13. [Contributing](#contributing)
+14. [License](#license)
 
 ---
 
@@ -51,7 +53,7 @@ Every non-trivial task proceeds through a deterministic loop. Each stage maps to
 
 ## Repository Structure
 
-```
+```text
 lstr-solo-harness/
 ├── AGENTS.md                          # Portable identity + behavioral contract (AGENTS.md-compatible IDEs)
 ├── README.md                          # This file
@@ -59,7 +61,7 @@ lstr-solo-harness/
 ├── docs/
 │   └── harness-design.md              # Full architecture document
 └── .trae/
-    ├── mcp.json                       # lstr-reasoning reasoning MCP server registry
+    ├── mcp.json                       # Florentin One Enterprise MCP Portal registry
     ├── rules/                         # Always-on behavioral contract
     │   ├── 00-identity.md             #   alwaysApply: true
     │   ├── 10-reasoning-framework.md  #   alwaysApply: true
@@ -83,8 +85,8 @@ lstr-solo-harness/
 ## Requirements
 
 - **TRAE IDE** with **SOLO Mode** enabled. See [SOLO mode overview](https://docs.trae.ai/ide/solo-mode).
-- Network reachability to the reasoning MCP server `https://reasoning.lstr.one/mcp` (the `metacognitive-plan` skill depends on it).
-- The global skill **`lstr-reasoning-framework`** installed under `~/.trae/skills/` — it supplies the exact tool-argument contract for the reasoning chain. See the [skill source](https://github.com/florentin-one-cloud/mcp).
+- Network reachability to the reasoning MCP server `https://mcp.api.florentin-one.de/mcp` (the `metacognitive-plan` skill depends on it).
+- The global skill **`reasoning-framework`** installed under `~/.trae/skills/` — it supplies the exact tool-argument contract for the reasoning chain. See the [skill source](https://github.com/LSTR-1/reasoning).
 - `python3` on the system PATH (used by the `PreToolUse` and `Stop` hooks).
 
 > **Note:** This is a declarative-configuration project. There is no build step, no test suite, and no runtime binary. Verification is performed by TRAE IDE itself: skills appear under **Settings → Skills & Commands**, hooks log to the **Output → Agent Hooks** panel, and MCP tools appear after the server is connected.
@@ -130,20 +132,86 @@ Skills also load automatically: the agent reads each `SKILL.md` description and 
 
 ## The Reasoning Framework
 
-The cognitive core is the **LSTR 6-step Zero-Shot Chain-of-Thought**, executed over the reasoning MCP server.
+The cognitive core is the **LSTR 6-step Zero-Shot Chain-of-Thought**, executed over the **Florentin One Enterprise MCP Portal** (`server_name: "mcp_mcp-portal"`) using **Cloudflare Code Mode**.
 
-| Step | Tool | Purpose |
+A mandatory **Step 0** resolves the exact tool names and schemas via `portal_codemode_search` (`codemode.tools()`) before any execution. Each framework step then runs via `portal_codemode_execute` (`codemode.<tool>(args)`). Parameters MUST be nested inside `args`. At most 4 upstream tool calls run concurrently. Reasoning tool names carry the `reasoning_` prefix.
+
+| Step | Code Mode tool | Purpose |
 | --- | --- | --- |
-| 1 | `metacognitiveMonitoring` | Assess knowledge boundaries and calibrate confidence |
-| 2 | `sequentialthinking` | Decompose the problem into ≥3 ordered thoughts |
-| 3 | `collaborativeReasoning` | Evaluate ≥2 genuinely divergent perspectives |
-| 4 | `scientificMethod` + `structuredArgumentation` | Hypothesis testing + thesis/antithesis/synthesis |
-| 5 | `constraintSolver` | Validate numeric constraints only |
-| 6 | `metacognitiveMonitoring` (reflection) | Finalize confidence and structure the output |
+| 0 | `portal_codemode_search` | Discover reasoning tool names and schemas (MANDATORY, once per session) |
+| 1 | `reasoning_metacognitiveMonitoring` | Assess knowledge boundaries and calibrate confidence |
+| 2 | `reasoning_sequentialthinking` | Decompose the problem into ≥3 ordered thoughts |
+| 3 | `reasoning_collaborativeReasoning` | Evaluate ≥2 genuinely divergent perspectives |
+| 4 | `reasoning_scientificMethod` + `reasoning_structuredArgumentation` | Hypothesis testing + thesis/antithesis/synthesis |
+| 5 | `reasoning_constraintSolver` | Validate numeric constraints only |
+| 6 | `reasoning_metacognitiveMonitoring` (reflection) | Finalize confidence and structure the output |
 
 The complexity gate in `10-reasoning-framework.md` decides whether the chain runs: it is mandatory only when **two or more** of (multi-step inference, competing constraints, non-trivial uncertainty, material consequence, explicit demand) are satisfied. Confidence is **never invented** — it is sourced from `metacognitiveMonitoring.overallConfidence`.
 
-> `narrative-planner` is deliberately EXCLUDED from the chain: its schema generates three-act story outlines and MUST NOT structure analytical output.
+> `reasoning_narrativePlanner` is deliberately EXCLUDED from the chain: its schema generates three-act story outlines and MUST NOT structure analytical output.
+
+## Vertical AI — AI in Value Chains
+
+The harness is positioned on **vertical AI**: AI systems tailored to a specific industry, process, or value-chain segment, as opposed to horizontal, general-purpose assistants. The framing follows the German Federal Ministry for Research, Technology and Space (BMFTR) funding directive *"Richtlinie zur Förderung von Leitprojekten für die Nutzung von KI in Wertschöpfungsketten"* (Bundesanzeiger, 31.07.2026).
+
+### Domain-specific industrial AI vs. horizontal general-purpose LLMs
+
+| Dimension | Domain-specific industrial AI (vertical) | General-purpose LLM chatbots (horizontal) |
+| --- | --- | --- |
+| Data | Domain corpora, industrial datasets and formats, specialised terminology | General, cross-domain corpora |
+| Strength | Deep domain knowledge; reliable processing of domain-typical data; support in workflows | Broad applicability; text generation, image analysis, general Q&A |
+| Limitation | Narrower applicability outside the target domain | Limited accuracy and precision in specialised fields such as medicine or mechanical engineering |
+| Cost profile | Lower compute footprint; local/edge processing feasible | Higher compute and inference cost for comparable reliability |
+
+BMFTR states the core argument directly: a strong focus on a single, currently widespread flavour — chatbots based on general large language models — is *not sufficient* to exploit AI's potential as a cross-cutting technology for pattern recognition and data analysis across many industries. The deficit stems substantially from a shortage of specialised, high-quality, purpose-updated data (specialised language, sector-specific legal frameworks, domain knowledge).
+
+### Programme context
+
+The directive sits under the **Hightech-Agenda Deutschland (HTAD)**, whose flagship measures span six priority key technologies; AI is one. BMFTR points to complementary EU-level instruments — the **8ra initiative**, the **AI Factories and Gigafactories**, the **Apply-AI strategy**, and in particular **IPCEI Artificial Intelligence (IPCEI-AI)** — as momentum to build on.
+
+### Priority sectors
+
+BMFTR targets sectors with a high value-added share in Germany:
+
+- Industrial manufacturing and mechanical engineering (process optimisation, autonomous reconfiguration of production lines on product changeover, resilient supply-chain control, AI-based product and production engineering)
+- Mobility and the automotive industry (specialised environmental perception, logistics optimisation)
+- Chemical industry and cleantech (materials research, sustainable process control, AI-driven laboratory environments)
+- Medical technology (AI-supported diagnostics)
+- Agriculture (precision farming, intelligent nutrient management)
+- Information and communications technology
+
+### Method catalogue (BMFTR-positive approaches)
+
+The directive states that using one or more of the following approaches is assessed positively:
+
+- Physics-Informed Neural Networks — embed physical laws (thermodynamics, fluid mechanics) into models
+- Retrieval-Augmented Generation and Knowledge Graphs — couple models in real time to structured domain knowledge and in-house knowledge bases
+- Agentic Workflows — systems that plan multi-step workflows autonomously and interact with external databases or tools
+- Federated Learning — cooperative training across distributed actors without sharing sensitive data
+- Model Compression — run capable models directly on end devices; reduce cloud dependence; ensure real-time capability and energy efficiency
+- Data Augmentation — enrich real data with synthetic data where data volume is scarce
+- Transfer Learning — adapt existing models efficiently to specific industrial target tasks
+- MLOps — automated training/testing/deployment pipelines with continuous monitoring (e.g. drift detection)
+- Explainable AI — make algorithm decisions interpretable for domain experts; ease certification in regulated domains
+- Formal verification — prove mathematically that models act within defined safety bounds
+- Adversarial robustness — protect systems against targeted manipulation
+- Automated red teaming — systematically identify weaknesses in domain-specific models
+- Reliability checks — detect and signal inputs outside the training distribution instead of extrapolating
+- Human-in-the-Loop — hand over to a human expert under high uncertainty in critical decisions
+- Data Provenance & Lineage — make origin, quality and processing history of all training data auditable
+- Standards-compatible test procedures — accelerate approval against existing industry norms
+
+BMFTR is explicit that applying specific methods is not decisive by itself; what matters is a traceable justification that the chosen approaches fully address industrial requirements for reliability, safety, and certifiability within a deep vertical integration.
+
+### Sovereignty, edge processing, and data protection
+
+Because specialised systems often need substantially less compute, input data can be processed locally (**Edge AI**). This reduces dependence on external providers and lowers data-protection and IT-security risk. A remaining hurdle is the preparation of frequently unstructured and heterogeneous data; standards, quality assurance, and cooperative interoperability are prerequisites for transferable solutions. The directive further requires that funded results be used only in the Federal Republic of Germany, the EEA, or Switzerland.
+
+### Explicit exclusions
+
+The directive explicitly excludes: pure investment in data-centre hardware; development of generalist language models without a specific sector focus; development of AI hardware; and the use of AI in HR, marketing, or customer support, predictive maintenance, civil security, or robotic systems for care — because these are addressed by complementary national and European programmes.
+
+> **Source:** BMFTR, *Bekanntmachung — Richtlinie zur Förderung von Leitprojekten für die Nutzung von KI in Wertschöpfungsketten*, Bundesanzeiger vom 31.07.2026 — <https://www.bmftr.bund.de/SharedDocs/Bekanntmachungen/DE/2026/07/2026-07-31-bekanntmachung-ki-wertschoepfungsketten.html>
 
 ## Self-Evolution Policy
 
@@ -157,7 +225,7 @@ A rule is distilled only when the task passed its **deterministic grader** (neve
 
 ## Compliance & Data Sovereignty
 
-- **GDPR Art. 28** — reasoning MCP calls transmit content to `https://reasoning.lstr.one/mcp`. Secrets and personal data are stripped from tool arguments absent a processing agreement covering that endpoint.
+- **GDPR Art. 28** — reasoning MCP calls transmit content to `https://mcp.api.florentin-one.de/mcp`. Secrets and personal data are stripped from tool arguments absent a processing agreement covering that endpoint.
 - **EU AI Act** — no prohibited practices (Art. 5); no sensitive-attribute inference without a lawful basis.
 - **German data sovereignty** — on-device/local storage by default; local skills and rules are preferred over remote services where functionally equivalent; cross-border egress is flagged explicitly.
 
@@ -199,4 +267,4 @@ Open an issue or pull request on GitHub. For substantive reasoning changes, run 
 
 ---
 
-*LSTR Solo Harness is a Florentin One project. "LSTR" is the reasoning identity; "TRAE" and "SOLO" are trademarks of their respective owners. TRAE product naming is referenced for platform compatibility only.*
+*LSTR Harness (Vertical AI Integration) is a Florentin One project. "LSTR" is the reasoning identity; "TRAE" and "SOLO" are trademarks of their respective owners. TRAE product naming is referenced for platform compatibility only.*
