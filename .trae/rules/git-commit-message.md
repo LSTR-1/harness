@@ -1,13 +1,12 @@
 ---
 alwaysApply: true
 scene: git_message
+standardID: GCM-LEDGER-1.0.0
+scope: Every commit authored, generated, amended, or imported into this repository, by human or machine.
+universality: Team-agnostic (lean MLOps, operational units, platform teams), platform-agnostic (cloud, on-prem, edge), data-type-agnostic (code, configuration, model artifacts, datasets, schemas, infrastructure-as-code, documentation), VCS-agnostic (Git, Mercurial, Subversion, Jujutsu).
 ---
 
-# Git Commit Message — Off-Platform-Cloud-Evolution-Ledger Standard
-
-**Standard ID:** GCM-LEDGER-1.0.0
-**Scope:** every commit authored, generated, amended, or imported into this repository, by human or machine.
-**Universality:** team-agnostic (lean MLOps, operational units, platform teams), platform-agnostic (cloud, on-prem, edge), data-type-agnostic (code, configuration, model artifacts, datasets, schemas, infrastructure-as-code, documentation), VCS-agnostic (Git, Mercurial, Subversion, Jujutsu).
+# Git Commit Message
 
 ## 0. Prime Directive
 
@@ -136,7 +135,7 @@ A commit message conforms when ALL hold:
 
 ## 11. Worked Examples
 
-**T0 — documentation-only change**
+### T0 — documentation-only change
 
 ```text
 docs(readme): clarify local setup steps
@@ -148,7 +147,7 @@ docs(readme): clarify local setup steps
 [TRACE] parent: a1b2c3d; review: PR-142
 ```
 
-**T2 — model artifact and schema change**
+### T2 — model artifact and schema change
 
 ```text
 feat(pricing-model): retrain with corrected FX feature pipeline
