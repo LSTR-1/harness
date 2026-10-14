@@ -1,7 +1,7 @@
 # LSTR Harness (Vertical AI Integration) — Architecture
 
 Production-ready, zero-shot, self-discovering, metacognitive, self-evolving AI-agent harness for **LSTR One Alpha**, positioned on **Vertical AI Integration**.
-Harness version: `2026.10.14-alpha.1` (ISO 8601 CalVer, alpha).
+Harness version: `2026.10.14-alpha.2` (ISO 8601 CalVer, alpha).
 
 ## 1. Purpose & Scope
 

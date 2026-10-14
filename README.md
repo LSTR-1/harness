@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform: LSTR One](https://img.shields.io/badge/Platform-LSTR%20One-blue)](https://florentin-one.de/)
-[![Version: 2026.10.14-alpha.1](https://img.shields.io/badge/Version-2026.10.13--alpha.1-orange)](https://github.com/LSTR-1/harness)
+[![Version: 2026.10.14-alpha.2](https://img.shields.io/badge/Version-2026.10.13--alpha.1-orange)](https://github.com/LSTR-1/harness)
 
 The harness is **configuration, not code**. It layers LSTR's native primitives — rules, skills, MCP, hooks, slash commands, and memory — into one coherent, auditable metacognitive control loop. LSTR's built-in agent is the runtime; this repository supplies the identity, reasoning discipline, deterministic guardrails, and self-evolution policy that make that runtime production-ready.
 

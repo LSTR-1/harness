@@ -1,7 +1,7 @@
 ---
 name: self-discover
 description: Builds a zero-shot runtime capability inventory for the LSTR Harness (Vertical AI Integration). Invoke when the agent needs to discover its own capabilities — trigger phrases "discover capabilities", "what can you do", "inventory your tools", "/discover", or at SessionStart bootstrap. Produces a capability table (capability, source, trigger condition, confidence) from skills, MCP tools, rules, and memory.
-version: 2026.10.14-alpha.1
+version: 2026.10.14-alpha.2
 ---
 
 # self-discover

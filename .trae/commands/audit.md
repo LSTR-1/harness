@@ -1,7 +1,7 @@
 ---
 name: audit
 description: Validate the newest reasoning record against the output contract and report gaps.
-version: 2026.10.14-alpha.1
+version: 2026.10.14-alpha.2
 ---
 
 # Audit the harness's reasoning trail
