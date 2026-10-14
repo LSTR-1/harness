@@ -2,8 +2,8 @@
 alwaysApply: false
 description: Every commit authored, generated, amended, or imported into this repository, by human or machine.
 scene: git_message
-ID: GCM-LEDGER-1.0.0
-universality: Team-agnostic (lean MLOps, operational units, platform teams), platform-agnostic (cloud, on-prem, edge), data-type-agnostic (code, configuration, model artifacts, datasets, schemas, infrastructure-as-code, documentation), VCS-agnostic (Git, Mercurial, Subversion, Jujutsu).
+GCMID: EUROPA-LSTR-LEDGER-0.1.0
+universality: team-agnostic (lean MLOps, operational units, platform teams), platform-agnostic (cloud, on-prem, edge), data-type-agnostic (code, configuration, model artifacts, datasets, schemas, infrastructure-as-code, documentation).
 ---
 
 # Git Commit Message
@@ -47,9 +47,13 @@ A message readable by only one layer is non-conformant.
 [TRACE]    provenance: parent revision, related commits, reasoning record, review reference
 ```
 
-- `<type>` ∈ `feat | fix | perf | refactor | docs | test | build | ci | chore | data | model | config | infra | security | revert`.
+- `<type>` — base set (Europa conventional-commit vocabulary):
+  `feat | fix | docs | style | refactor | perf | test | chore`.
+- `<type>` — documented LSTR domain extension:
+  `build | ci | data | model | config | infra | security`.
+- A revert MUST be expressed with the `revert:` prefix on the type (Europa convention), NOT as a type-enum member; the reversal procedure still goes in `[ROLLBACK]`.
 - `<scope>` = affected component or domain, lowercase, hyphenated.
-- `<summary>` = imperative mood, no trailing period, jargon-light; MUST be understandable without the body.
+- `<summary>` = imperative mood, present tense, no capital first letter, no trailing period, jargon-light; MUST be understandable without the body.
 - `<ledger-id>` = stable, unique, immutable key; for a VCS that assigns a revision id, use it; otherwise use `<UTC-date>-<scope>-<seq>`.
 - Block order is fixed; empty optional blocks MUST be omitted, never emitted blank.
 
@@ -80,10 +84,22 @@ The tier governs which blocks are mandatory. Tier is chosen by the highest-sever
 
 The schema above is VCS-neutral text. Rendering per host:
 
-- **Git** — line 1 is the subject; keep it ≤50 characters (hard limit 72); a single blank line separates subject from body; wrap body lines at 72; each block tag begins a line.
+- **Git** — line 1 is the subject; recommended ≤50 characters (hard limit 100); a single blank line separates subject from body; wrap body lines at 72; each block tag begins a line.
 - **Jujutsu** — identical to Git (description text).
 - **Mercurial** — the whole entry is the changeset description; line 1 is the summary; blocks follow unchanged.
 - **Subversion** — a single log message with no subject/body split; line 1 is the summary; blocks follow on subsequent lines. Do NOT rely on `svn:keywords` or external properties for ledger content.
+
+### 5.1 Europa-Compatibility Mapping
+
+GCM's header/body/footer framing corresponds to the Europa Git convention's header/body/footer three-part structure (see [Europa component-library Git conventions](https://ec.europa.eu/component-library/v1.15.0/eu/docs/conventions/git/) and [Europa informatics newsletter](https://ec.europa.eu/newsroom/informatics/newsletter-archives/74820)).
+
+| Europa part | GCM element |
+| --- | --- |
+| Header `<type>(<scope>): <subject>` | Header line `<type>(<scope>): <summary>` |
+| Body | Tag blocks `[WHY]`, `[WHAT]`, `[IMPACT]`, `[EVIDENCE]`, `[RISK]`, `[LEDGER]` |
+| Footer (`BREAKING CHANGE:`, issue-closing refs) | Blocks `[ROLLBACK]` and `[TRACE]`; the `BREAKING CHANGE:` trailer corresponds to an `[IMPACT]` statement of incompatibility plus the `[ROLLBACK]` procedure |
+
+The type vocabulary is aligned: the GCM base set (`feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`) equals the Europa set; the LSTR domain extensions (`build`, `ci`, `data`, `model`, `config`, `infra`, `security`) are documented above. Reverts use the `revert:` prefix, matching Europa.
 
 ## 6. Traceability & Audit
 
@@ -128,7 +144,7 @@ A commit message conforms when ALL hold:
 - [ ] `[LEDGER]` present with an ISO-8601 UTC timestamp and a tier in {T0, T1, T2}.
 - [ ] All blocks mandatory for the declared tier are present and non-empty.
 - [ ] Block order follows the schema; no blank mandatory blocks.
-- [ ] Subject ≤72 characters; summary is imperative and jargon-light.
+- [ ] Every line ≤100 characters; subject recommended ≤50; summary is imperative, present tense, lowercase first letter, no trailing dot, and jargon-light.
 - [ ] No secrets, credentials, or personal data.
 - [ ] Every acronym is defined on first use; all dates are absolute.
 - [ ] The message is interpretable with all external references removed.

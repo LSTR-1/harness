@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform: LSTR One](https://img.shields.io/badge/Platform-LSTR%20One-blue)](https://florentin-one.de/)
-[![Version: 2026.10.14-alpha.1](https://img.shields.io/badge/Version-2026.10.13--alpha.1-orange)](https://github.com/LSTR-1/harness)
+[![Version: 2026.10.14-alpha.2](https://img.shields.io/badge/Version-2026.10.14--alpha.2-orange)](https://github.com/LSTR-1/harness)
 
 The harness is **configuration, not code**. It layers LSTR's native primitives — rules, skills, MCP, hooks, slash commands, and memory — into one coherent, auditable metacognitive control loop. LSTR's built-in agent is the runtime; this repository supplies the identity, reasoning discipline, deterministic guardrails, and self-evolution policy that make that runtime production-ready.
 
@@ -45,7 +45,7 @@ Every non-trivial task proceeds through a deterministic loop. Each stage maps to
 | Stage | Action | LSTR primitive | Research mechanism |
 | --- | --- | --- | --- |
 | 1. **Discover** | Build a capability inventory | `self-discover` skill; MCP `tools/list`; `SessionStart` hook | Zero-shot introspection |
-| 2. **Plan** | 6-step reasoning + constraint planning + mental simulation | `metacognitive-plan` skill; MCP toolchain; `/plan` | DeepPlanning (local vs global constraints); Qwen-AgentWorld (simulation-as-thinking) |
+| 2. **Plan** | 6-step reasoning + constraint planning + mental simulation | `10-reasoning-framework.md` rule; global `reasoning-framework` skill; MCP toolchain | DeepPlanning (local vs global constraints); Qwen-AgentWorld (simulation-as-thinking) |
 | 3. **Act** | Guarded tool execution | `PreToolUse` hook; MCP `tools/call` | OccuBench (assume silent environment degradation) |
 | 4. **Verify** | Fault-injection self-test with deterministic grading | `self-test` skill | OccuBench (fault injection); GDPevo (deterministic graders, not LLM-as-judge) |
 | 5. **Evolve** | Reflection → distillation into skills/memory | `self-evolve` skill; `/reflect`; memory | GDPevo (reflect / fewshot / self supervision) |
@@ -70,7 +70,6 @@ lstr-solo-harness/
     │   └── 40-evolution-policy.md     #   intelligent (description-driven)
     ├── skills/                        # On-demand capability modules
     │   ├── self-discover/SKILL.md
-    │   ├── metacognitive-plan/SKILL.md
     │   ├── self-test/SKILL.md
     │   └── self-evolve/SKILL.md
     ├── commands/                      # Slash-command entry points
@@ -85,7 +84,7 @@ lstr-solo-harness/
 ## Requirements
 
 - **LSTR IDE** with **SOLO Mode** enabled. See [SOLO mode overview](https://docs.trae.ai/ide/solo-mode).
-- Network reachability to the reasoning MCP server `https://mcp.api.florentin-one.de/mcp` (the `metacognitive-plan` skill depends on it).
+- Network reachability to the reasoning MCP server `https://mcp.api.florentin-one.de/mcp` (the LSTR 6-step reasoning chain — mandated by the always-on `10-reasoning-framework.md` rule and executed via the global `reasoning-framework` skill — depends on it).
 - The global skill **`reasoning-framework`** installed under `~/.trae/skills/` — it supplies the exact tool-argument contract for the reasoning chain. See the [skill source](https://github.com/LSTR-1/reasoning).
 - `python3` on the system PATH (used by the `PreToolUse` and `Stop` hooks).
 
@@ -119,12 +118,11 @@ cp harness/AGENTS.md /path/to/your/project/
 
 ## Usage
 
-Three slash commands drive the harness from the chat input box:
+Three slash commands — `/discover`, `/reflect`, and `/audit` — drive the harness from the chat input box:
 
 | Command | Skill | Purpose |
 | --- | --- | --- |
 | `/discover` | `self-discover` | Print a zero-shot capability inventory (skills, MCP tools, rules, memory) with confidence per capability |
-| `/plan` | `metacognitive-plan` | Run the 6-step reasoning chain and emit a decision-complete plan against verifiable constraints |
 | `/reflect` | `self-evolve` | Reflect on the just-completed task and distil reusable rules into the evolution ledger |
 | `/audit` | — | Validate the newest reasoning record against the output contract and report gaps |
 
@@ -259,7 +257,7 @@ Contributions follow the harness's own discipline:
 2. Grading changes MUST be deterministic, not LLM-as-judge.
 3. No secrets or personal data in any committed artifact.
 
-Open an issue or pull request on GitHub. For substantive reasoning changes, run `/plan` first and attach the reasoning record.
+Open an issue or pull request on GitHub. For substantive reasoning changes, run the LSTR 6-step reasoning chain — always-on `10-reasoning-framework.md` rule and global `reasoning-framework` skill — first and attach the reasoning record.
 
 ## License
 

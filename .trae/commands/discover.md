@@ -1,7 +1,7 @@
 ---
 name: discover
 description: Build a zero-shot runtime capability inventory of the LSTR Harness (Vertical AI Integration).
-version: 2026.10.14-alpha.1
+version: 2026.10.14-alpha.2
 ---
 
 # Invoke the `self-discover` skill

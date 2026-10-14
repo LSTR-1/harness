@@ -1,7 +1,7 @@
 ---
 name: reflect
 description: Reflect on the just-completed task and distil reusable rules into persistent state (self-evolution).
-version: 2026.10.14-alpha.1
+version: 2026.10.14-alpha.2
 ---
 
 # Invoke the `self-evolve` skill on the just-completed task
