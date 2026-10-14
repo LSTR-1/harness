@@ -13,7 +13,7 @@ The four required properties, defined precisely:
 | --- | --- | --- |
 | **Zero-shot** | Operates from introspective capability discovery at session start; no warm-up, fine-tuning, or training | `self-discover` + `SessionStart` hook |
 | **Self-discovering** | Builds a runtime inventory of its own skills, MCP tools, rules, and memory | `self-discover` skill; MCP `tools/list` |
-| **Metacognitive** | Calibrates knowledge boundaries and confidence, reasons over verifiable constraints, gates its own output | LSTR 6-step chain; `metacognitive-plan`; `Stop` hook |
+| **Metacognitive** | Calibrates knowledge boundaries and confidence, reasons over verifiable constraints, gates its own output | LSTR 6-step chain; `10-reasoning-framework.md` rule; global `reasoning-framework` skill; `Stop` hook |
 | **Self-evolving** | Reflects on task outcomes and distils reusable atomic rules into persistent state | `self-evolve` skill + evolution ledger |
 
 ## 2. The Metacognitive Loop
@@ -23,7 +23,7 @@ Six stages, each mapped to a LSTR primitive and a transferred paper mechanism.
 | Stage | Action | LSTR primitive | Paper mechanism |
 | --- | --- | --- | --- |
 | 1. **Discover** | Capability inventory | `self-discover` skill; MCP `tools/list`; `SessionStart` hook | Zero-shot introspection |
-| 2. **Plan** | 6-step reasoning + constraint planning + mental simulation | `metacognitive-plan` skill; MCP toolchain; `/plan` | DeepPlanning (local vs global constraints), Qwen-AgentWorld (simulation-as-thinking) |
+| 2. **Plan** | 6-step reasoning + constraint planning + mental simulation | `10-reasoning-framework.md` rule; global `reasoning-framework` skill; MCP toolchain | DeepPlanning (local vs global constraints), Qwen-AgentWorld (simulation-as-thinking) |
 | 3. **Act** | Guarded tool execution | `PreToolUse` hook; MCP `tools/call` | OccuBench (assume silent degradation) |
 | 4. **Verify** | Fault-injection self-test, deterministic grading | `self-test` skill | OccuBench (fault injection), GDPevo (deterministic graders) |
 | 5. **Evolve** | Reflection → distillation | `self-evolve` skill; `/reflect`; memory | GDPevo (reflect/fewshot/self supervision) |
@@ -46,7 +46,7 @@ rules (always-on)  →  skills (on-demand)  →  MCP (toolchain)  →  hooks (de
 
 ## 4. Reasoning Chain Spec
 
-The LSTR 6-step chain is the runtime's cognitive core. It executes over the Florentin One Enterprise MCP Portal (`server_name: "mcp_mcp-portal"`) using Cloudflare Code Mode: a mandatory Step 0 resolves tool names via `portal_codemode_search` (`codemode.tools()`); each step then runs via `portal_codemode_execute` (`codemode.<tool>(args)`) with parameters nested inside `args`; at most 4 upstream calls run concurrently. Full argument contract lives in the global `reasoning-framework` skill; the project `metacognitive-plan` skill delegates to it.
+The LSTR 6-step chain is the runtime's cognitive core. It executes over the Florentin One Enterprise MCP Portal (`server_name: "mcp_mcp-portal"`) using Cloudflare Code Mode: a mandatory Step 0 resolves tool names via `portal_codemode_search` (`codemode.tools()`); each step then runs via `portal_codemode_execute` (`codemode.<tool>(args)`) with parameters nested inside `args`; at most 4 upstream calls run concurrently. Full argument contract lives in the global `reasoning-framework` skill; the Plan stage is served directly by the always-on `10-reasoning-framework.md` rule and the global `reasoning-framework` skill.
 
 | Step | Code Mode tool | Required args |
 | --- | --- | --- |
@@ -105,7 +105,6 @@ trae-harness/
     │   └── 40-evolution-policy.md     # intelligent (description-driven)
     ├── skills/                        # on-demand capability modules
     │   ├── self-discover/SKILL.md
-    │   ├── metacognitive-plan/SKILL.md
     │   ├── self-test/SKILL.md
     │   └── self-evolve/SKILL.md
     ├── commands/                      # slash-command entry points

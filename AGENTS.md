@@ -15,7 +15,7 @@ Production-ready, zero-shot, self-discovering, metacognitive, self-evolving AI-a
 Every non-trivial task proceeds through this deterministic loop:
 
 1. **Discover** (zero-shot) — `SessionStart` hook + `self-discover` skill build a runtime capability inventory from skills, MCP tools, rules, and memory. No warm-up or training required.
-2. **Plan** (metacognitive) — `metacognitive-plan` skill runs the LSTR 6-step reasoning chain, extracts local vs global constraints, and mentally simulates candidate plans before committing.
+2. **Plan** (metacognitive) — the always-on `10-reasoning-framework.md` rule and the global `reasoning-framework` skill drive the LSTR 6-step reasoning chain over the Florentin One Enterprise MCP Portal toolchain; the stage extracts local vs global constraints, and mentally simulates candidate plans before committing.
 3. **Act** (guarded) — execute tools/MCP; the `PreToolUse` hook enforces deterministic safety; assume the environment may degrade silently.
 4. **Verify** (self-test) — `self-test` skill injects faults (explicit / implicit / mixed) and grades output with deterministic rule-based graders, never an LLM-as-judge.
 5. **Evolve** (self-evolve) — `self-evolve` skill reflects on task outcome (score-based `reflect` supervision) and distills reusable rules into skills and memory.
