@@ -1,8 +1,8 @@
 ---
-alwaysApply: true
+alwaysApply: false
+description: Every commit authored, generated, amended, or imported into this repository, by human or machine.
 scene: git_message
-standardID: GCM-LEDGER-1.0.0
-scope: Every commit authored, generated, amended, or imported into this repository, by human or machine.
+ID: GCM-LEDGER-1.0.0
 universality: Team-agnostic (lean MLOps, operational units, platform teams), platform-agnostic (cloud, on-prem, edge), data-type-agnostic (code, configuration, model artifacts, datasets, schemas, infrastructure-as-code, documentation), VCS-agnostic (Git, Mercurial, Subversion, Jujutsu).
 ---
 
